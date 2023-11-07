@@ -1,11 +1,15 @@
-const express = require('express')
-const app = express()
-const port = 8080;
+const express = require('express');
+require('dotenv').config();
+const hbs = require('hbs');
+const app = express();
+const port = process.env.puerto;
 // servir contenido estatico
 app.use(express.static('public'));
 
 
-
+// Handlebar
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials', function (err) { });
 // app.get('/', function (req, res) {
 //     res.send('Hello World')
 // })
@@ -18,20 +22,39 @@ app.get('/hola-mundo', function (req, res) {
 
 
 app.get('/home', function (req, res) {
-    res.sendFile(__dirname+ '/public/home.html')
+    // res.sendFile(__dirname + '/public/home.html')
+    res.render('home.hbs', {
+        nombre: 'Cristian Casas',
+        titulo: 'Node js Developer'
+    });
 });
 
-app.get('/generic', function (req, res) {
-    res.sendFile(__dirname+ '/public/generic.html')
+app.get('/', (req, res) => {
+    res.render('home.hbs', {
+        nombre: 'Cristian Casas',
+        titulo: 'Node js Developer'
+    });
 });
 
-app.get('/elements', function (req, res) {
-    res.sendFile(__dirname+ '/public/elements.html')
+app.get('/generic', (req, res) => {
+    // res.sendFile(__dirname+ '/public/generic.html')
+    res.render('generic.hbs', {
+        nombre: 'Cristian Casas',
+        titulo: 'Node js Developer'
+    });
+});
+
+app.get('/elements', (req, res) => {
+    // res.sendFile(__dirname + '/public/elements.html')
+    res.render('elements.hbs', {
+        nombre: 'Cristian Casas',
+        titulo: 'Node js Developer'
+    });
 });
 
 
-app.get('*', function (req, res) {
-    res.sendFile(__dirname +'/public/back/404.html');
+app.get('*', (req, res) => {
+    res.sendFile(__dirname + '/public/back/404.html');
 });
 
 
