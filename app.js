@@ -71,6 +71,6 @@ app.get('*', (req, res) => {
 // app.get('/emmanuel',(request, response) =>{
 //     response.send("esta es la ruta de emmaanuel")
 // })
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Example app listening on port ${port}`)
 })
